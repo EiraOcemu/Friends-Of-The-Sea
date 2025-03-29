@@ -1,0 +1,23 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 0
+
+
+[[patches]]
+[patches.pattern]
+target = "cardarea.lua"
+pattern = """self.config.highlighted_limit = config.highlight_limit or 5"""
+position = "at"
+payload = """self.config.highlighted_limit = config.highlight_limit or G.GAME.Lily_Hand or 5"""
+overwrite = true
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = """if #G.hand.highlighted <= 0 or G.GAME.blind.block_play or #G.hand.highlighted > 5 then """
+position = "at"
+payload = """if #G.hand.highlighted <= 0 or G.GAME.blind.block_play or #G.hand.highlighted > G.GAME.Lily_Hand then"""
+overwrite = true
+match_indent = true
